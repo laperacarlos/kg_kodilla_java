@@ -3,7 +3,6 @@ package com.kodilla.testing.weather.mock;
 
 import com.kodilla.testing.weather.stub.Temperatures;
 import com.kodilla.testing.weather.stub.WeatherForecast;
-import org.decimal4j.util.DoubleRounder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,13 +49,13 @@ public class WeatherForecastTestSuite {
         //Given
         WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
         Map<String, Double> mapToAvg = weatherForecast.calculateForecast();
-        double testAvg = DoubleRounder.round((25.5+26.2+24.8+25.2+26.1)/5, 2);
+        double testAvg = (25.5+26.2+24.8+25.2+26.1)/5;
 
         //When
         double averageTemperature = weatherForecast.averageTemperature(mapToAvg);
 
         //Then
-        Assertions.assertEquals(testAvg, averageTemperature);
+        Assertions.assertEquals(testAvg, averageTemperature, 0.001);
     }
 
     @Test

@@ -1,7 +1,11 @@
 package com.kodilla.stream;
 
+import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.beautifier.PoemDecorator;
 import com.kodilla.stream.lambda.*;
 import com.kodilla.stream.reference.FunctionalCalculator;
+
+import java.util.Locale;
 
 public class StreamMain {
 
@@ -29,5 +33,10 @@ public class StreamMain {
         expressionExecutor.executeExpression(10, 5, FunctionalCalculator::multiplyAByB);
         expressionExecutor.executeExpression(10, 5, FunctionalCalculator::divideAByB);
 
-        }
+        PoemBeautifier poemBeautifier = new PoemBeautifier();
+        poemBeautifier.beautify("love", (toDecorate -> toDecorate.toUpperCase() ));
+        poemBeautifier.beautify("love", (toDecorate -> "ABC" + toDecorate + "ABC" ));
+        poemBeautifier.beautify("love", (toDecorate -> new StringBuilder(toDecorate).reverse().toString()));
+        poemBeautifier.beautify("love", (toDecorate -> new StringBuilder(toDecorate).insert(4, "4all").toString()));
+    }
 }

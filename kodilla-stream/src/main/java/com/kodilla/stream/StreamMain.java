@@ -2,8 +2,12 @@ package com.kodilla.stream;
 
 import com.kodilla.stream.book.BookDirectory;
 import com.kodilla.stream.book.Book;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
 import com.kodilla.stream.person.People;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +16,7 @@ import java.util.stream.Collectors;
 public class StreamMain {
 
     public static void main(String[] args) {
+
         People.getList().stream()
                 .forEach(System.out::println);
 
@@ -51,6 +56,21 @@ public class StreamMain {
                 .collect(Collectors.joining(",\n", "<<", ">>"));
 
         System.out.println(theResultStringOfBooks);
+
+        System.out.println("\n7.3 Final Task \n");
+
+        Forum newForum = new Forum();
+        Map<Integer, ForumUser> resultListOfUsers = newForum.getListOfUsers().stream()
+                .filter(u -> u.getSex() == 'M')
+                .filter (u -> Period.between(u.getDateOfBirth(), LocalDate.now()).getYears() >= 20)
+                .filter(u -> u.getNumberOfPosts() >= 1)
+                .collect(Collectors.toMap(ForumUser::getIdUser, user -> user));
+
+        resultListOfUsers.entrySet().stream()
+                .map(entry -> entry.getKey().toString() + ": " + entry.getValue())
+                .forEach(System.out::println);
+
+        System.out.println("\n7.3 End of Task \n\n");
 
   }
 }

@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.IntStream;
-
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.*;
@@ -169,5 +169,30 @@ public class BoardTestSuite {
 
         //Then
         assertEquals(10, avgTime);
+    }
+
+    @Test
+    void testAddTaskListAverageWorkingOnTaskVer2() {
+        //Given
+        Board project = prepareTestData();
+
+        //When
+        List<TaskList> inProgressTasks = new LinkedList<>();
+        inProgressTasks.add(new TaskList("In progress"));
+
+        OptionalDouble optAverageTimePerTask = project.getTaskLists().stream()
+                .filter(inProgressTasks::contains)
+                .flatMap(tl -> tl.getTasks().stream())
+                .mapToLong(n -> DAYS.between(n.getCreated(), LocalDate.now()))
+                .average();
+
+        double averageTimePerTask = 0;
+
+        if (optAverageTimePerTask.isPresent()) {
+            averageTimePerTask = optAverageTimePerTask.getAsDouble();
+        }
+
+        //Then
+        assertEquals(10, averageTimePerTask);
     }
 }

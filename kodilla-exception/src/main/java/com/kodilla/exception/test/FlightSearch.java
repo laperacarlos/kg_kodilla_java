@@ -12,7 +12,7 @@ public class FlightSearch {
 
         String destination = flight.getArrivalAirport();
 
-        if (flightMap.containsKey(destination)) {
+        if (flightMap.containsKey(destination) && flightMap.get(destination)) {
             System.out.println("You got it! Flight to " + destination + " is possible. Check the price!");
             } else {
             throw new RouteNotFoundException();

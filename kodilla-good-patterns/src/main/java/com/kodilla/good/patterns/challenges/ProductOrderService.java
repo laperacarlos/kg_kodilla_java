@@ -4,15 +4,17 @@ public class ProductOrderService {
 
     private final InformationService informationService;
     private final OrderDatabase orderDatabase;
+    private final CheckAvailability checkAvailability;
 
-    public ProductOrderService(final InformationService informationService, final OrderDatabase orderDatabase) {
+    public ProductOrderService(final InformationService informationService, final OrderDatabase orderDatabase, final CheckAvailability checkAvailability) {
         this.informationService = informationService;
         this.orderDatabase = orderDatabase;
+        this.checkAvailability = checkAvailability;
     }
 
     public OrderDto processOrder(final OrderRequest orderRequest) {
 
-        if (orderRequest.checkAvailability()) {
+        if (checkAvailability.checkAvailability(orderRequest)) {
             informationService.sendOrderConfirmation(orderRequest.getUser());
             orderDatabase.addOrderToRealization(orderRequest);
             System.out.println("Order no: " + orderRequest.getOrderId() + " is confirmed. Final price of order: " + orderRequest.getFinalPrice() + "PLN");

@@ -29,8 +29,4 @@ public class OrderRequest {
                 .mapToDouble(ProductData::getPriceToOrder)
                 .sum();
     }
-
-    public boolean checkAvailability() {
-        return true;
-    }
 }

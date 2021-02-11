@@ -16,7 +16,7 @@ public class GoodPatternsMain {
         OrderDataRetriever orderDataRetriever = new OrderDataRetriever();
         OrderRequest orderRequest = orderDataRetriever.retrieve();
 
-        ProductOrderService productOrderService = new ProductOrderService(new ThisStoreInformationService(), new ThisStoreDatabase(), new ThisStoreCheckProductAvailability());
+        ProductOrderService productOrderService = new ProductOrderService(new ThisStoreInformationService(), new ThisStoreDatabase(), new ThisStoreProductDatabase());
 
         productOrderService.processOrder(orderRequest);
     }

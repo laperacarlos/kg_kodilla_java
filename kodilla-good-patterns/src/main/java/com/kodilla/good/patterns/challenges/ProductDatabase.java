@@ -1,5 +1,5 @@
 package com.kodilla.good.patterns.challenges;
 
-public interface CheckAvailability {
+public interface ProductDatabase {
     boolean checkAvailability(OrderRequest orderRequest);
 }

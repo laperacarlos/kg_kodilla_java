@@ -22,13 +22,14 @@ public class SearchService {
                 processedFlights = flightDatabase.getFlightDatabase().stream()
                         .filter(flight -> Objects.equals(flight.getDepartureAirport(), searchRequest.getRequestedDepartureAirport()))
                         .collect(Collectors.toSet());
+
                 informationAfterSearch.departureAirportInformation(searchRequest, processedFlights);
             } else {
                 processedFlights = flightDatabase.getFlightDatabase().stream()
                         .filter(flight -> flight.getArrivalAirport().equals(searchRequest.getRequestedArrivalAirport()))
                         .collect(Collectors.toSet());
-                informationAfterSearch.arrivalAirportInformation(searchRequest, processedFlights);
 
+                informationAfterSearch.arrivalAirportInformation(searchRequest, processedFlights);
             }
         } else {
             processedFlights = flightDatabase.getFlightDatabase().stream()

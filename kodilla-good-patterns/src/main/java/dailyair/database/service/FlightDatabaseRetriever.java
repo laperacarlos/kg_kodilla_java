@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class FlightDatabaseRetriever {
 
-    public FlightDatabase retrieve() {
+    public FlightDatabase retriever() {
 
         Flight flight1 = new FlightDailyAir("Wroclaw", "Krakow", 1207);
         Flight flight2 = new FlightDailyAir("Wroclaw", "Gdansk", 1176);

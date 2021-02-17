@@ -3,7 +3,6 @@ package dailyair.database.service;
 import java.util.Set;
 
 public class FlightDatabase {
-
     private final Set<Flight> flightDatabase;
 
     public FlightDatabase(Set<Flight> flightDatabase) {

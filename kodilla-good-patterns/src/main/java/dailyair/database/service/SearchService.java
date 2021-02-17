@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 public class SearchService {
 
     private final FlightDatabase flightDatabase;
+    private final InformationAfterSearch informationAfterSearch;
 
-    public SearchService(FlightDatabase flightDatabase) {
+    public SearchService(FlightDatabase flightDatabase, InformationAfterSearch informationAfterSearch) {
         this.flightDatabase = flightDatabase;
+        this.informationAfterSearch = informationAfterSearch;
     }
 
     public Set<Flight> process(SearchRequest searchRequest) {
@@ -20,20 +22,12 @@ public class SearchService {
                 processedFlights = flightDatabase.getFlightDatabase().stream()
                         .filter(flight -> Objects.equals(flight.getDepartureAirport(), searchRequest.getRequestedDepartureAirport()))
                         .collect(Collectors.toSet());
-
-                System.out.println("\nList of flights from: " + searchRequest.getRequestedDepartureAirport());
-                for (Flight flight : processedFlights) {
-                    System.out.println(flight);
-                }
+                informationAfterSearch.departureAirportInformation(searchRequest, processedFlights);
             } else {
                 processedFlights = flightDatabase.getFlightDatabase().stream()
                         .filter(flight -> flight.getArrivalAirport().equals(searchRequest.getRequestedArrivalAirport()))
                         .collect(Collectors.toSet());
-
-                System.out.println("\nList of flights to: " + searchRequest.getRequestedArrivalAirport());
-                for (Flight flight : processedFlights) {
-                    System.out.println(flight);
-                }
+                informationAfterSearch.arrivalAirportInformation(searchRequest, processedFlights);
 
             }
         } else {
@@ -42,10 +36,7 @@ public class SearchService {
                             flight.getDepartureAirport().equals(searchRequest.getRequestedGoingThroughAirport()) && flight.getArrivalAirport().equals(searchRequest.getRequestedArrivalAirport())))
                     .collect(Collectors.toSet());
 
-            System.out.println("\nList of flights from: " + searchRequest.getRequestedDepartureAirport() + " to: " + searchRequest.getRequestedArrivalAirport() + " via: " + searchRequest.getRequestedGoingThroughAirport());
-            for (Flight flight : processedFlights) {
-                System.out.println(flight);
-            }
+            informationAfterSearch.goingThroughInformation(searchRequest, processedFlights);
         }
         return processedFlights;
     }

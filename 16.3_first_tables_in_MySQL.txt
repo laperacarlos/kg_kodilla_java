@@ -1,0 +1,60 @@
+create table ISSUELISTS
+(
+ID serial primary key,
+NAME char(100)
+);
+
+create table ISSUES
+(
+ID serial primary key,
+ISSUELIST_ID bigint unsigned not null,
+SUMMARY varchar(200),
+DESCRIPTION varchar(2000),
+USER_ID_ASSIGNEDTO bigint unsigned not null,
+foreign key(ISSUELIST_ID) references ISSUELISTS(ID),
+foreign key(USER_ID_ASSIGNEDTO) references USERS(ID)
+); 
+
+insert into ISSUELISTS (NAME) 
+values ("ToDo");
+
+insert into ISSUELISTS (NAME) 
+values  ("InProgress");
+
+insert into ISSUELISTS (NAME) 
+values ("Done");
+
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (1, "To do 1", "Thing to be done 1", 2);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (1, "To do 2", "Thing to be done 2", 3);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (1, "To do 3", "Thing to be done 3", 1);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (1, "To do 4", "Thing to be done 4", 4);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (1, "To do 5", "Thing to be done 5", 4);
+
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (2, "In progress 1", "Thing in progress 1", 1);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (2, "In progress 2", "Thing in progress 2", 3);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (2, "In progress 3", "Thing in progress 3", 3);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (2, "In progress 4", "Thing in progress 4", 5);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (2, "In progress 5", "Thing in progress 5", 2);
+
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (3, "Done 1", "Thing done 1", 2);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (3, "Done 2", "Thing done 2", 2);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (3, "Done 3", "Thing done 3", 5);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (3, "Done 4", "Thing done 4", 4);
+insert into ISSUES(ISSUELIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO) 
+values  (3, "Done 5", "Thing done 5", 2);
+
+commit;

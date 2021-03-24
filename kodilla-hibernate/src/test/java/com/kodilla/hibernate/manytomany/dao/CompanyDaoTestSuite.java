@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -13,6 +15,8 @@ public class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -57,6 +61,44 @@ public class CompanyDaoTestSuite {
             companyDao.deleteById(dataMaestersId);
         } catch (Exception e) {
             //do nothing
+        }
+    }
+
+    @Test
+    void testNamedQueries() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+        Employee mariaKovalsky = new Employee("Maria", "Kovalsky");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaKovalsky);
+        employeeDao.save(mariaKovalsky);
+
+        companyDao.save(softwareMachine);
+        companyDao.save(greyMatter);
+        companyDao.save(dataMaesters);
+
+        //When
+        List<Employee> directNameEmployees = employeeDao.retrieveEmployeeWithLastname("Kovalsky");
+        List<Company> companiesWithThreeCharacters = companyDao.retrieveCompanyWithThreeCharacters("Sof");
+
+        //Than
+        assertEquals(2, directNameEmployees.size());
+        assertEquals(1, companiesWithThreeCharacters.size());
+
+        //CleanUp
+        try {
+            companyDao.deleteAll();
+            employeeDao.deleteAll();
+        } catch (Exception e) {
+            //DoNothing
         }
     }
 }

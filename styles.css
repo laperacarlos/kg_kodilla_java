@@ -1,0 +1,13 @@
+body {
+   background-color: grey;
+}
+
+h1 {
+   color: #FF0000;
+   text-align: center;
+}
+
+p {
+   font-size: 30px;
+   color: #800080;
+}

@@ -32,6 +32,7 @@ public class TaskListDaoTestSuite {
         List<TaskList> readTaskList = taskListDao.findByListName(listName);
         assertEquals(1,readTaskList.size());
         assertEquals(LIST_DESCRIPTION, readTaskList.get(0).getDescription());
+        //assertEquals(taskList, readTaskList.get(0)); trzeba dodać metodę equals w obiekcie taskList
 
         //CleanUp
         int id = readTaskList.get(0).getId();

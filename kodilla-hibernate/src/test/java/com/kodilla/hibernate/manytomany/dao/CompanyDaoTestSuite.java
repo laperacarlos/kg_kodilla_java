@@ -77,13 +77,20 @@ public class CompanyDaoTestSuite {
         Company greyMatter = new Company("Grey Matter");
 
         employeeDao.save(johnSmith);
+        int johnSmithId = johnSmith.getId();
         employeeDao.save(stephanieClarckson);
+        int stephCId = stephanieClarckson.getId();
         employeeDao.save(lindaKovalsky);
+        int lindaKId = lindaKovalsky.getId();
         employeeDao.save(mariaKovalsky);
+        int mariaKId = mariaKovalsky.getId();
 
         companyDao.save(softwareMachine);
+        int softwareMachineId = softwareMachine.getId();
         companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
         companyDao.save(dataMaesters);
+        int dataMaestersId = dataMaesters.getId();
 
         //When
         List<Employee> directNameEmployees = employeeDao.retrieveEmployeeWithLastname("Kovalsky");
@@ -95,8 +102,13 @@ public class CompanyDaoTestSuite {
 
         //CleanUp
         try {
-            companyDao.deleteAll();
-            employeeDao.deleteAll();
+            companyDao.deleteById(softwareMachineId);
+            companyDao.deleteById(greyMatterId);
+            companyDao.deleteById(dataMaestersId);
+            employeeDao.deleteById(johnSmithId);
+            employeeDao.deleteById(stephCId);
+            employeeDao.deleteById(lindaKId);
+            employeeDao.deleteById(mariaKId);
         } catch (Exception e) {
             //DoNothing
         }

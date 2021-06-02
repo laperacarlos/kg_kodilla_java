@@ -11,6 +11,11 @@ import java.util.List;
         resultClass = Company.class
 )
 
+@NamedQuery(
+        name = "Company.retrieveCompanyWithPhraseInName",
+        query = "from Company where name like concat('%', :PHRASE, '%')"
+)
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {

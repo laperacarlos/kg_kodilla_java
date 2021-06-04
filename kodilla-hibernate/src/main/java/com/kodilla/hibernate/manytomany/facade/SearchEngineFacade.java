@@ -28,6 +28,7 @@ public class SearchEngineFacade {
         List<Company> retrievedList = companyDao.retrieveCompanyWithPhraseInName(querySigns);
 
         if (retrievedList.size() == 0) {
+            LOGGER.error(SearchEngineException.ERR_COMPANY_NOT_FOUND);
             throw new SearchEngineException(SearchEngineException.ERR_COMPANY_NOT_FOUND);
         } else {
             LOGGER.info("Printing company list.");
@@ -43,6 +44,7 @@ public class SearchEngineFacade {
         List<Employee> retrievedList = employeeDao.retrieveEmployeeWithPhraseInFirstname(querySigns);
 
         if (retrievedList.size() == 0) {
+            LOGGER.error(SearchEngineException.ERR_EMPLOYEE_NOT_FOUND);
             throw new SearchEngineException(SearchEngineException.ERR_EMPLOYEE_NOT_FOUND);
         } else {
             LOGGER.info("Printing employee list.");

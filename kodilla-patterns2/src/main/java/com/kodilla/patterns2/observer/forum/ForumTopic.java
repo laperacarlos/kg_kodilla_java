@@ -9,7 +9,7 @@ public class ForumTopic implements Observable {
     private final String name;
 
     public ForumTopic(String name) {
-                messages = new ArrayList<>();
+        messages = new ArrayList<>();
         observers = new ArrayList<>();
         this.name = name;
     }

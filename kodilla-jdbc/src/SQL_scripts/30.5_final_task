@@ -1,0 +1,22 @@
+create table STATS(
+    STAT_ID int(11) auto_increment primary key,
+    STAT_DATE datetime not null,
+    STAT varchar(20) not null,
+    VALUE int(11) not null
+);
+
+create view BESTSELLERS_COUNT(COUNT) as
+select count(*) from BOOKS where BESTSELLER<>0;
+
+delimiter $$
+create event UPDATE_BESTSELLERS
+    on schedule every 1 minute
+    do
+    begin
+        declare COUNTER int;
+        call UpdateBestsellers();
+        select sum(COUNT) from BESTSELLERS_COUNT into COUNTER;
+        insert into STATS(STAT_DATE, STAT, VALUE)
+            value (curtime(), 'BESTSELLERS',COUNTER);
+    end$$
+delimiter ;
